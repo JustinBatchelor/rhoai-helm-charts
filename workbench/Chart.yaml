@@ -1,0 +1,12 @@
+apiVersion: v2
+name: workbench
+description: RHOAI Kubeflow Notebook workspace with vLLM model serving and Continue.dev
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - openshift-ai
+  - vscode
+  - vllm
+  - coding-agent
+  - workbench

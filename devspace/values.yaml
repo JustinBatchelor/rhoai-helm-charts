@@ -1,0 +1,83 @@
+username: ""
+gitRepo: ""
+gitBranch: "main"
+devspacesNamespace: ""
+
+# ---------- ArgoCD ----------
+argocd:
+  managedBy: "tenant-gitops"
+
+# ---------- Feature toggles ----------
+modelServing:
+  enabled: true
+
+# ---------- Model serving ----------
+aiModel:
+  name: "qwen3-coder-30b-a3b"
+  storageUri: ""
+  cpu: ""
+  memory: ""
+  gpu: ""
+
+modelCatalog:
+  qwen3-coder-30b-a3b:
+    displayName: "Qwen 3 Coder 30B-A3B (AWQ)"
+    storageUri: "hf://QuantTrio/Qwen3-Coder-30B-A3B-Instruct-AWQ"
+    cpu: "4"
+    memory: "20Gi"
+    gpu: "1"
+    contextLength: 16384
+    maxModelLen: 16384
+    toolCallParser: "qwen3_coder"
+  qwen25-coder-14b:
+    displayName: "Qwen 2.5 Coder 14B (AWQ)"
+    storageUri: "hf://Qwen/Qwen2.5-Coder-14B-Instruct-AWQ"
+    cpu: "4"
+    memory: "16Gi"
+    gpu: "1"
+    contextLength: 32768
+    toolCallParser: "hermes"
+  qwen25-coder-7b:
+    displayName: "Qwen 2.5 Coder 7B"
+    storageUri: "hf://Qwen/Qwen2.5-Coder-7B-Instruct"
+    cpu: "4"
+    memory: "12Gi"
+    gpu: "1"
+    contextLength: 32768
+    toolCallParser: "hermes"
+  qwen3-4b:
+    displayName: "Qwen 3 4B"
+    storageUri: "hf://Qwen/Qwen3-4B"
+    cpu: "4"
+    memory: "12Gi"
+    gpu: "1"
+    contextLength: 32768
+    toolCallParser: "hermes"
+
+servingRuntime:
+  image: "registry.redhat.io/rhaiis/vllm-cuda-rhel9@sha256:ec799bb5eeb7e25b4b25a8917ab5161da6b6f1ab830cbba61bba371cffb0c34d"
+
+hardwareProfile:
+  name: "nvidia-a10g-gpu"
+  namespace: "redhat-ods-applications"
+
+nodeSelector:
+  gpu-node: "true"
+
+# ---------- Dev Spaces ----------
+devspaces:
+  image: "registry.redhat.io/devspaces/udi-rhel9:latest"
+  dashboardUrl: "https://devspaces.apps.rhsaia.4o0y.p1.openshiftapps.com/dashboard/"
+  editorContributionUri: "http://devspaces-dashboard.openshift-devspaces.svc.cluster.local:8080/dashboard/api/editors/devfile?che-editor=che-incubator/che-code/latest"
+  resources:
+    requests:
+      cpu: "1"
+      memory: "2Gi"
+    limits:
+      cpu: "2"
+      memory: "4Gi"
+
+# ---------- Continue.dev ----------
+continuedev:
+  enabled: true
+  temperature: 0.3
